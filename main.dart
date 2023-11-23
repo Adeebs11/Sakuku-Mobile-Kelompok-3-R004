@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'start_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,8 +9,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sakuku',
-      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xFFA2AFD7),
+      ),
+      home: Scaffold(
+        body: Home(),
+      ),
     );
   }
 }
