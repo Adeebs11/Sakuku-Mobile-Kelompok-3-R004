@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
-class Home extends StatelessWidget {
+class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,6 +48,8 @@ class Home extends StatelessWidget {
         SizedBox(height: 5),
         ElevatedButton(
           onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
             // Tambahkan aksi yang diinginkan ketika tombol ditekan
           },
           style: ElevatedButton.styleFrom(
