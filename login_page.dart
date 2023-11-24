@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'beranda.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,46 +14,43 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Masuk Akun'),
+        title: Text('Login'),
+        backgroundColor: Color(0xFFD1DCFF),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Email',
-              style: TextStyle(fontSize: 16),
-            ),
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
-                hintText: 'Masukkan email Anda',
+                labelText: 'Email',
+                icon: Icon(Icons.email),
               ),
+              keyboardType: TextInputType.emailAddress,
             ),
-            Text(
-              'Kata Sandi',
-              style: TextStyle(fontSize: 16),
-            ),
+            SizedBox(height: 16.0),
             TextField(
               controller: _passwordController,
-              obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Masukkan kata sandi Anda',
+                labelText: 'Password',
+                icon: Icon(Icons.lock),
               ),
+              obscureText: true,
             ),
-            SizedBox(height: 16),
-            TextButton(
+            SizedBox(height: 24.0),
+            ElevatedButton(
               onPressed: () {
-                // TODO: Kirim permintaan login ke server
+                // Tambahkan logika autentikasi di sini
+                // Contoh sederhana: selalu melanjutkan login tanpa memeriksa email dan password
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => BerandaPage()),
+                );
               },
-              child: Text('Masuk'),
-            ),
-            TextButton(
-              onPressed: () {
-                // TODO: Tampilkan halaman daftar akun
-              },
-              child: Text('Belum mempunyai akun? Daftar'),
+              child: Text('Login'),
             ),
           ],
         ),
