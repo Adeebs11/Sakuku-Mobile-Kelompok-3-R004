@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
-import 'beranda.dart';
+import 'sakukus.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/start', // Tentukan rute awal
       routes: {
         '/login': (context) => LoginPage(),
-        '/': (context) => BerandaPage(),
+        '/': (context) => Beranda2Page(),
         // Tambahkan rute lain jika diperlukan
       },
     );
