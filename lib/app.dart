@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/start', // Tentukan rute awal
       routes: {
         '/login': (context) => LoginPage(),
-        '/': (context) => Beranda2Page(),
+        '/': (context) => BerandaPage(),
         // Tambahkan rute lain jika diperlukan
       },
     );
