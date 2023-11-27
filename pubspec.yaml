@@ -25,5 +25,6 @@ flutter:
         - asset: assets/fonts/Montserrat-Medium.ttf
   assets:
     - assets/images/MainMenu.png
+    - assets/Images/SakuKuLogo.png
 
 
