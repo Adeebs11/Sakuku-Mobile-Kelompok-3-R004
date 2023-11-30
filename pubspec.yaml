@@ -18,13 +18,24 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+        
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat-Regular.ttf
         - asset: assets/fonts/Montserrat-Bold.ttf
         - asset: assets/fonts/Montserrat-Medium.ttf
+    
+    - family: Arial
+      fonts:
+        - asset: assets/fonts/ARIAL.ttf
+        - asset: assets/fonts/ARIALBD.ttf
   assets:
     - assets/images/MainMenu.png
-    - assets/Images/SakuKuLogo.png
-
-
+    - assets/images/SakuKuLogo.png
+    - assets/images/pemasukan.png
+    - assets/images/pengeluaran.png
