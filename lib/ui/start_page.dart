@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'package:sakuku_mobile/sakuku.dart';
 
 class StartPage extends StatelessWidget {
   @override
@@ -48,8 +48,8 @@ class StartPage extends StatelessWidget {
         SizedBox(height: 5),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Beranda2Page()));
             // Tambahkan aksi yang diinginkan ketika tombol ditekan
           },
           style: ElevatedButton.styleFrom(
