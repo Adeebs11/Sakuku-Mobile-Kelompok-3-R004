@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
 
 class BerandaPage extends StatelessWidget {
-  const BerandaPage({super.key});
+  const BerandaPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFDCE4FF),
-      body: // Generated code for this Column Widget...
-          Column(
+      body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Row(
@@ -60,10 +61,12 @@ class BerandaPage extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
+          Consumer<TransaksiProvider>(
+            builder: (context, transaksiProvider, _) {
+              double totalPemasukan = transaksiProvider.getTotalPemasukan();
+              double totalPengeluaran = transaksiProvider.getTotalPengeluaran();
+
+              return Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Flexible(
@@ -91,7 +94,7 @@ class BerandaPage extends StatelessWidget {
                                 top: 25,
                                 right: 10,
                                 child: Image.asset(
-                                  'assets/images/pemasukan.png', // Ganti dengan path gambar Anda
+                                  'assets/images/pemasukan.png',
                                   width: 35.0,
                                   height: 35.0,
                                 ),
@@ -126,7 +129,7 @@ class BerandaPage extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: Text(
-                                        'Rp. 10.050.000',
+                                        'Rp. ${totalPemasukan.toStringAsFixed(2)}',
                                         style: TextStyle(
                                           fontFamily: 'Arial',
                                           color: Colors.black,
@@ -153,35 +156,33 @@ class BerandaPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment:
-                                        AlignmentDirectional(-1.00, 0.00),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: Text(
-                                        '5',
-                                        style: TextStyle(
-                                          fontFamily: 'Arial',
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 10,
+                                  Consumer<TransaksiProvider>(
+                                    builder: (context, transaksiProvider, _) {
+                                      int jumlahTransaksi = transaksiProvider
+                                              .getJumlahTransaksi('Gaji') +
+                                          transaksiProvider
+                                              .getJumlahTransaksi('Investasi') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'LainnyaPemasukan'); // Ganti dengan kategori yang sesuai
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.00, 0.00),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
+                                          child: Text(
+                                            '$jumlahTransaksi',
+                                            style: TextStyle(
+                                              fontFamily: 'Arial',
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 10,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
-                                    child: Text(
-                                      '05/05/2023',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Arial',
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 9,
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -216,7 +217,7 @@ class BerandaPage extends StatelessWidget {
                                 top: 25,
                                 right: 10,
                                 child: Image.asset(
-                                  'assets/images/pengeluaran.png', // Ganti dengan path gambar Anda
+                                  'assets/images/pengeluaran.png',
                                   width: 35.0,
                                   height: 35.0,
                                 ),
@@ -251,7 +252,7 @@ class BerandaPage extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: Text(
-                                        'Rp. 10.050.000',
+                                        'Rp. ${totalPengeluaran.toStringAsFixed(2)}',
                                         style: TextStyle(
                                           fontFamily: 'Arial',
                                           color: Colors.black,
@@ -278,35 +279,45 @@ class BerandaPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment:
-                                        AlignmentDirectional(-1.00, 0.00),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10, 0, 0, 0),
-                                      child: Text(
-                                        '5',
-                                        style: TextStyle(
-                                          fontFamily: 'Arial',
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 10,
+                                  Consumer<TransaksiProvider>(
+                                    builder: (context, transaksiProvider, _) {
+                                      int jumlahTransaksi2 = transaksiProvider
+                                              .getJumlahTransaksi(
+                                                  'Makanan & Minuman') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'Transportasi') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'Kebutuhan Rumah') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'Perawatan Pribadi') +
+                                          transaksiProvider
+                                              .getJumlahTransaksi('Belanja') +
+                                          transaksiProvider
+                                              .getJumlahTransaksi('Kesehatan') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'Pendidikan') +
+                                          transaksiProvider.getJumlahTransaksi(
+                                              'Lainnya'); // Ganti dengan kategori yang sesuai
+                                      // Ganti dengan kategori yang sesuai
+                                      return Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.00, 0.00),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10, 0, 0, 0),
+                                          child: Text(
+                                            '$jumlahTransaksi2',
+                                            style: TextStyle(
+                                              fontFamily: 'Arial',
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 10,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
-                                    child: Text(
-                                      '05/05/2023',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Arial',
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 9,
-                                      ),
-                                    ),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -317,9 +328,10 @@ class BerandaPage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ],
+              );
+            },
           ),
+          Align(),
           Flexible(
             child: Align(
               alignment: AlignmentDirectional(0.00, -1.00),
@@ -407,9 +419,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 9,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    5), // Ganti dengan jarak yang diinginkan
+                            SizedBox(height: 5),
                             Text(
                               'Rp 1.000.000',
                               style: TextStyle(
@@ -419,7 +429,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 12,
                               ),
                             ),
-                            SizedBox(height: 20), // spasi antara teks
+                            SizedBox(height: 20),
                             Text(
                               'Pemasukan Terendah',
                               style: TextStyle(
@@ -428,9 +438,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 9,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    5), // Ganti dengan jarak yang diinginkan
+                            SizedBox(height: 5),
                             Text(
                               'Rp 1.500.000',
                               style: TextStyle(
@@ -536,9 +544,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 9,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    5), // Ganti dengan jarak yang diinginkan
+                            SizedBox(height: 5),
                             Text(
                               'Rp 1.000.000',
                               style: TextStyle(
@@ -548,7 +554,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 12,
                               ),
                             ),
-                            SizedBox(height: 20), // spasi antara teks
+                            SizedBox(height: 20),
                             Text(
                               'Pengeluaran Terendah',
                               style: TextStyle(
@@ -557,9 +563,7 @@ class BerandaPage extends StatelessWidget {
                                 fontSize: 9,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    5), // Ganti dengan jarak yang diinginkan
+                            SizedBox(height: 5),
                             Text(
                               'Rp 1.500.000',
                               style: TextStyle(
