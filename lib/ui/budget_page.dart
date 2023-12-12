@@ -1,10 +1,9 @@
-//import 'dart:js';
-
 import 'package:flutter/material.dart';
-import 'package:sakukumobile/model/transaksi_provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sakukumobile/ui/form_pengeluaran.dart';
-import 'package:sakukumobile/ui/form_pemasukan.dart';
+import 'package:sakuku_mobile/ui/form_pengeluaran.dart';
+import 'package:sakuku_mobile/ui/form_pemasukan.dart';
+import 'package:intl/intl.dart';
 
 class BudgetPage extends StatelessWidget {
   const BudgetPage({Key? key}) : super(key: key);
@@ -31,7 +30,7 @@ class BudgetPage extends StatelessWidget {
     double totalNominalInvestasi =
         transaksiProvider.getTotalNominal('Investasi');
     double totalNominalLainnyaPemasukan =
-        transaksiProvider.getTotalNominal('Lainnyaa');
+        transaksiProvider.getTotalNominal('LainnyaPemasukan');
 
     return Scaffold(
       backgroundColor: Color(0xFFDCE4FF),
@@ -68,7 +67,7 @@ class BudgetPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    ' Rp ${totalPengeluaran.toStringAsFixed(0)}',
+                                    ' Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalPengeluaran)}',
                                 style: TextStyle(
                                   fontFamily: 'Arial',
                                   color: Colors.black,
@@ -173,7 +172,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalMakananMinuman',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalMakananMinuman)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -241,7 +240,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalTransportasi',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalTransportasi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -308,7 +307,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalKebutuhanRumah',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalKebutuhanRumah)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -376,7 +375,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalPerawatanPribadi',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalPerawatanPribadi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -444,7 +443,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalBelanja',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalBelanja)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -512,7 +511,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalKesehatan',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalKesehatan)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -580,7 +579,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalPendidikan',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalPendidikan)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -648,7 +647,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalLainnya',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalLainnya)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -671,6 +670,7 @@ class BudgetPage extends StatelessWidget {
             ),
             Consumer<TransaksiProvider>(
               builder: (context, transaksiProvider, _) {
+                double totalPemasukan = transaksiProvider.getTotalPemasukan();
                 return Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -693,7 +693,7 @@ class BudgetPage extends StatelessWidget {
                             ),
                             TextSpan(
                               text:
-                                  ' Rp ${transaksiProvider.getTotalPemasukan().toStringAsFixed(0)}',
+                                  ' Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalPemasukan)}',
                               style: TextStyle(
                                 fontFamily: 'Arial',
                                 fontWeight: FontWeight.bold,
@@ -798,7 +798,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalGaji',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalGaji)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
