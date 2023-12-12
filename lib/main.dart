@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'start_page.dart';
+import 'package:sakukumobile/ui/start_page.dart';
+import 'package:provider/provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TransaksiProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
