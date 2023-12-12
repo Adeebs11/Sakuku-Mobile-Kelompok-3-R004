@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/ui/beranda_page.dart';
+import 'package:sakukumobile/ui/beranda_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
