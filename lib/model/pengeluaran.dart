@@ -32,4 +32,20 @@ class Pengeluaran {
     this.jumlah = map['jumlah'];
     this.deskripsi = map['deskripsi'];
   }
+
+  bool isPengeluaran() {
+    // Sesuaikan dengan kelompok kategori yang menunjukkan pengeluaran
+    List<String> kategoriPengeluaran = [
+      'Makanan & Minuman',
+      'Transportasi',
+      'Kebutuhan Rumah',
+      'Perawatan Pribadi',
+      'Belanja',
+      'Kesehatan',
+      'Pendidikan',
+      'Lainnya'
+    ];
+
+    return kategoriPengeluaran.contains(kategori);
+  }
 }
