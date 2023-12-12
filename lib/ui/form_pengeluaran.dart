@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/db/db_helper.dart';
-import 'package:sakuku_mobile/model/pengeluaran.dart';
+import 'package:sakukumobile/db/db_helper.dart';
+import 'package:sakukumobile/model/pengeluaran.dart';
 import 'package:intl/intl.dart';
-import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
 
 class FormPengeluaran extends StatefulWidget {
@@ -254,6 +254,7 @@ class _FormPengeluaranState extends State<FormPengeluaran> {
             kategori: selectedValue!,
             jumlah: double.parse(jumlah?.text ?? '0'),
             id: '',
+            tanggal: DateTime.now(),
           ),
         );
       }
@@ -275,6 +276,7 @@ class _FormPengeluaranState extends State<FormPengeluaran> {
             kategori: selectedValue!,
             jumlah: double.parse(jumlah!.text),
             id: '',
+            tanggal: DateTime.now(),
           ),
         );
       }
