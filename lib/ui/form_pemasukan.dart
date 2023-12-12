@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sakukumobile/db/db_helper.dart';
-import 'package:sakukumobile/model/pengeluaran.dart';
+import 'package:sakuku_mobile/db/db_helper.dart';
+import 'package:sakuku_mobile/model/pengeluaran.dart';
 import 'package:intl/intl.dart';
-import 'package:sakukumobile/model/transaksi_provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
 
 class FormPemasukan extends StatefulWidget {
@@ -17,7 +17,7 @@ class FormPemasukan extends StatefulWidget {
 class _FormPemasukanState extends State<FormPemasukan> {
   DbHelper db = DbHelper();
 
-  List<String> list = ['Gaji', 'Investasi', 'Lainnyaa'];
+  List<String> list = ['Gaji', 'Investasi', 'LainnyaPemasukan'];
   late String dropDownValue = list.first;
 
   TextEditingController? kategori;
@@ -228,13 +228,15 @@ class _FormPemasukanState extends State<FormPemasukan> {
     TransaksiProvider transaksiProvider =
         Provider.of<TransaksiProvider>(context, listen: false);
 
+    String cleanJumlah = jumlah?.text.replaceAll('.', '') ?? '0';
+
     if (widget.pengeluaran != null) {
       // Update
       await db.updatePemasukan(Pengeluaran.fromMap({
         'id': widget.pengeluaran!.id,
         'kategori': selectedValue,
         'tanggal': tanggal?.text ?? '',
-        'jumlah': double.parse(jumlah?.text ?? '0').toString(),
+        'jumlah': cleanJumlah,
         'deskripsi': deskripsi?.text ?? '',
       }));
 
@@ -243,7 +245,7 @@ class _FormPemasukanState extends State<FormPemasukan> {
         transaksiProvider.addTransaksi(
           Transaksi(
             kategori: selectedValue!,
-            jumlah: double.parse(jumlah?.text ?? '0'),
+            jumlah: double.parse(cleanJumlah),
             id: '',
             tanggal: DateTime.now(),
           ),
@@ -256,16 +258,16 @@ class _FormPemasukanState extends State<FormPemasukan> {
       await db.savePemasukan(Pengeluaran(
         kategori: selectedValue,
         tanggal: tanggal?.text ?? '',
-        jumlah: double.parse(jumlah?.text ?? '0').toString(),
+        jumlah: cleanJumlah,
         deskripsi: deskripsi?.text ?? '',
       ));
 
       // Add new Transaksi to TransaksiProvider
-      if (selectedValue != null && jumlah?.text != null) {
+      if (selectedValue != null) {
         transaksiProvider.addTransaksi(
           Transaksi(
             kategori: selectedValue!,
-            jumlah: double.parse(jumlah!.text),
+            jumlah: double.parse(cleanJumlah),
             id: '',
             tanggal: DateTime.now(),
           ),
