@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
-import 'package:sakuku_mobile/ui/form_pengeluaran.dart';
-import 'package:sakuku_mobile/ui/form_pemasukan.dart';
-import 'package:sakuku_mobile/db/db_helper.dart';
+import 'package:sakukumobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
+import 'package:sakukumobile/ui/form_pengeluaran.dart';
+import 'package:sakukumobile/ui/form_pemasukan.dart';
+import 'package:sakukumobile/db/db_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 
 class TransaksisPage extends StatefulWidget {
   const TransaksisPage({Key? key}) : super(key: key);
@@ -119,66 +119,6 @@ class _TransaksisPageState extends State<TransaksisPage> {
               ),
             ),
           );
-          // Pengeluaran pengeluaran = listPengeluaran[index];
-          // return ListTile(
-
-          //   onTap: () {
-          //     //edit
-          //     _openFormEdit(pengeluaran);
-          //   },
-          //   contentPadding: EdgeInsets.all(16),
-
-          //   title: Text(
-          //     '${pengeluaran.kategori} | ${pengeluaran.tanggal}',
-          //     style: TextStyle(
-          //         fontSize: 18,
-          //         fontStyle: FontStyle.italic,
-          //         color: Colors.black,
-          //         //color: Colors.redAccent
-          //         ),
-          //   ),
-          //   subtitle: Text(
-          //     '${pengeluaran.deskripsi} | Rp. ${pengeluaran.jumlah}',
-          //     style: TextStyle(fontSize: 14,
-          //      color: Colors.grey
-          //     ),
-          //   ),
-          //   trailing: IconButton(
-          //     icon: Icon(Icons.delete),
-          //     onPressed: () {
-          //       AlertDialog hapus = AlertDialog(
-          //         title: Text('Information'),
-          //         content: Container(
-          //           height: 100,
-          //           child: Column(
-          //             children: [
-          //               Text(
-          //                   'Apakah anda yakin ingin menghapus data ${pengeluaran.kategori} ${pengeluaran.id} ${pengeluaran.deskripsi}'),
-          //             ],
-          //           ),
-          //         ),
-          //         actions: [
-          //           TextButton(
-          //             child: Text('Ya'),
-          //             onPressed: () async {
-          //               //delete
-          //               await _deletePengeluaran(
-          //                   pengeluaran, index, transaksiProvider);
-          //               Navigator.pop(context);
-          //             },
-          //           ),
-          //           TextButton(
-          //             child: Text('Tidak'),
-          //             onPressed: () {
-          //               Navigator.pop(context);
-          //             },
-          //           ),
-          //         ],
-          //       );
-          //       showDialog(context: context, builder: (context) => hapus);
-          //     },
-          //   ),
-          // );
         },
       ),
       floatingActionButton: Row(
@@ -233,6 +173,7 @@ class _TransaksisPageState extends State<TransaksisPage> {
               kategori: pengeluaran['kategori'] ?? 'Default Kategori',
               jumlah: double.parse(pengeluaran['jumlah'] ?? '0'),
               id: '',
+              tanggal: DateTime.now(),
             ),
           );
         });
@@ -268,6 +209,7 @@ class _TransaksisPageState extends State<TransaksisPage> {
               kategori: pengeluaran['kategori'] ?? 'Default Kategori',
               jumlah: double.parse(pengeluaran['jumlah'] ?? '0'),
               id: '',
+              tanggal: DateTime.now(),
             ),
           );
         });
@@ -306,6 +248,7 @@ class _TransaksisPageState extends State<TransaksisPage> {
         kategori: pengeluaran.kategori!,
         jumlah: double.parse(pengeluaran.jumlah.toString()),
         id: '',
+        tanggal: DateTime.now(),
       ),
     );
 
