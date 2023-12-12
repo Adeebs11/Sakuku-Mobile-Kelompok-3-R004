@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sakukumobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
-import 'package:sakukumobile/ui/form_pengeluaran.dart';
-import 'package:sakukumobile/ui/form_pemasukan.dart';
-import 'package:sakukumobile/db/db_helper.dart';
+import 'package:sakuku_mobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
+import 'package:sakuku_mobile/ui/form_pengeluaran.dart';
+import 'package:sakuku_mobile/ui/form_pemasukan.dart';
+import 'package:sakuku_mobile/db/db_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:sakukumobile/model/transaksi_provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
 
 class TransaksisPage extends StatefulWidget {
   const TransaksisPage({Key? key}) : super(key: key);
@@ -24,6 +24,7 @@ class _TransaksisPageState extends State<TransaksisPage> {
   @override
   void initState() {
     _getAllPengeluaran();
+    _getAllPemasukan();
     super.initState();
   }
 
@@ -224,15 +225,30 @@ class _TransaksisPageState extends State<TransaksisPage> {
     var result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => FormPemasukan()));
     if (result == 'save') {
-      await _getAllPengeluaran();
+      await _getAllPemasukan();
     }
   }
 
   Future<void> _openFormEdit(Pengeluaran pengeluaran) async {
-    var result = await Navigator.push(
+    var result;
+
+    // Periksa apakah kategori termasuk dalam kelompok pengeluaran
+    if (pengeluaran.isPengeluaran()) {
+      result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => FormPengeluaran(pengeluaran: pengeluaran)));
+          builder: (context) => FormPengeluaran(pengeluaran: pengeluaran),
+        ),
+      );
+    } else {
+      result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FormPemasukan(pengeluaran: pengeluaran),
+        ),
+      );
+    }
+
     if (result == 'update') {
       await _getAllPengeluaran();
     }
