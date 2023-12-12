@@ -866,7 +866,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalInvestasi',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalInvestasi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
@@ -934,7 +934,7 @@ class BudgetPage extends StatelessWidget {
                                 child: Consumer<TransaksiProvider>(
                                   builder: (context, transaksiProvider, _) {
                                     return Text(
-                                      'Rp $totalNominalLainnyaPemasukan',
+                                      'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalLainnyaPemasukan)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Arial',
