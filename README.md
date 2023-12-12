@@ -2,6 +2,6 @@
 
 - flutter pub add sqflite
 - flutter pub add provider
-AGAR PROGRAM DAPAT BERJALAN DENGAN LANCAR
 
-A new Flutter project.
+
+AGAR PROGRAM DAPAT BERJALAN DENGAN LANCAR
