@@ -1,9 +1,10 @@
+//import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sakuku_mobile/ui/form_pengeluaran.dart';
-import 'package:sakuku_mobile/ui/form_pemasukan.dart';
+import 'package:sakukumobile/ui/form_pengeluaran.dart';
+import 'package:sakukumobile/ui/form_pemasukan.dart';
 
 class BudgetPage extends StatelessWidget {
   const BudgetPage({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class BudgetPage extends StatelessWidget {
     double totalNominalInvestasi =
         transaksiProvider.getTotalNominal('Investasi');
     double totalNominalLainnyaPemasukan =
-        transaksiProvider.getTotalNominal('LainnyaPemasukan');
+        transaksiProvider.getTotalNominal('Lainnyaa');
 
     return Scaffold(
       backgroundColor: Color(0xFFDCE4FF),
