@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sakukumobile/model/transaksi_provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:intl/intl.dart';
 
 class BerandaPage extends StatelessWidget {
   const BerandaPage({Key? key});
@@ -129,7 +130,7 @@ class BerandaPage extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: Text(
-                                        'Rp. ${totalPemasukan.toStringAsFixed(2)}',
+                                        'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalPemasukan)}',
                                         style: TextStyle(
                                           fontFamily: 'Arial',
                                           color: Colors.black,
@@ -163,7 +164,7 @@ class BerandaPage extends StatelessWidget {
                                           transaksiProvider
                                               .getJumlahTransaksi('Investasi') +
                                           transaksiProvider.getJumlahTransaksi(
-                                              'Lainnyaa'); // Ganti dengan kategori yang sesuai
+                                              'LainnyaPemasukan'); // Ganti dengan kategori yang sesuai
                                       return Align(
                                         alignment:
                                             AlignmentDirectional(-1.00, 0.00),
@@ -252,7 +253,7 @@ class BerandaPage extends StatelessWidget {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10, 0, 0, 0),
                                       child: Text(
-                                        'Rp. ${totalPengeluaran.toStringAsFixed(2)}',
+                                        'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalPengeluaran)}',
                                         style: TextStyle(
                                           fontFamily: 'Arial',
                                           color: Colors.black,
@@ -372,7 +373,7 @@ class BerandaPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                                                    Align(
+                          Align(
                             alignment: AlignmentDirectional(-1.00, 0.00),
                             child: Padding(
                               padding:
@@ -390,20 +391,29 @@ class BerandaPage extends StatelessWidget {
                           Align(
                             alignment: AlignmentDirectional(-1.00, 0.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(15, 10, 0, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 10, 0, 0),
                               child: Consumer<TransaksiProvider>(
                                 builder: (context, transaksiProvider, _) {
                                   // Mendapatkan transaksi pemasukan terakhir untuk kategori tertentu
-                                  Transaksi? lastIncomeTransaction = transaksiProvider.getLastIncomeByCategory(['Gaji', 'Investasi', 'Lainnyaa']);
+                                  Transaksi? lastIncomeTransaction =
+                                      transaksiProvider
+                                          .getLastIncomeByCategory([
+                                    'Gaji',
+                                    'Investasi',
+                                    'LainnyaPemasukan'
+                                  ]);
 
                                   // Menentukan kategori transaksi pemasukan terakhir yang akan ditampilkan
-                                  String displayedCategory = lastIncomeTransaction?.kategori ?? '';
+                                  String displayedCategory =
+                                      lastIncomeTransaction?.kategori ?? '';
 
                                   // Mengambil nominal dari transaksi pemasukan terakhir
-                                  double totalNominalPemasukan = lastIncomeTransaction?.jumlah ?? 0;
+                                  double totalNominalPemasukan =
+                                      lastIncomeTransaction?.jumlah ?? 0;
 
                                   return Text(
-                                    'Rp ${totalNominalPemasukan.toStringAsFixed(2)}',
+                                    'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalPemasukan)}',
                                     style: TextStyle(
                                       fontFamily: 'Arial',
                                       color: Color(0xFF72A884),
@@ -434,28 +444,39 @@ class BerandaPage extends StatelessWidget {
                             SizedBox(height: 5),
                             Consumer<TransaksiProvider>(
                               builder: (context, transaksiProvider, _) {
-                                final largestGajiTransaction =
-                                    transaksiProvider.getLargestIncomeTransaction('Gaji');
+                                final largestGajiTransaction = transaksiProvider
+                                    .getLargestIncomeTransaction('Gaji');
                                 final largestInvestasiTransaction =
-                                    transaksiProvider.getLargestIncomeTransaction('Investasi');
+                                    transaksiProvider
+                                        .getLargestIncomeTransaction(
+                                            'Investasi');
                                 final largestLainnyaTransaction =
-                                    transaksiProvider.getLargestIncomeTransaction('Lainnyaa');
+                                    transaksiProvider
+                                        .getLargestIncomeTransaction(
+                                            'LainnyaPemasukan');
 
-                                double largestAmount = largestGajiTransaction?.jumlah ?? 0;
+                                double largestAmount =
+                                    largestGajiTransaction?.jumlah ?? 0;
                                 String largestCategory = 'Gaji';
 
-                                if (largestInvestasiTransaction != null && largestInvestasiTransaction.jumlah! > largestAmount) {
-                                  largestAmount = largestInvestasiTransaction.jumlah!;
+                                if (largestInvestasiTransaction != null &&
+                                    largestInvestasiTransaction.jumlah! >
+                                        largestAmount) {
+                                  largestAmount =
+                                      largestInvestasiTransaction.jumlah!;
                                   largestCategory = 'Investasi';
                                 }
 
-                                if (largestLainnyaTransaction != null && largestLainnyaTransaction.jumlah! > largestAmount) {
-                                  largestAmount = largestLainnyaTransaction.jumlah!;
-                                  largestCategory = 'Lainnyaa';
+                                if (largestLainnyaTransaction != null &&
+                                    largestLainnyaTransaction.jumlah! >
+                                        largestAmount) {
+                                  largestAmount =
+                                      largestLainnyaTransaction.jumlah!;
+                                  largestCategory = 'LainnyaPemasukan';
                                 }
 
                                 return Text(
-                                  'Rp ${largestAmount.toStringAsFixed(2)}',
+                                  'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(largestAmount)}',
                                   style: TextStyle(
                                     fontFamily: 'Arial',
                                     color: Colors.black,
@@ -478,27 +499,39 @@ class BerandaPage extends StatelessWidget {
                             Consumer<TransaksiProvider>(
                               builder: (context, transaksiProvider, _) {
                                 final smallestGajiTransaction =
-                                    transaksiProvider.getSmallestIncomeTransaction('Gaji');
+                                    transaksiProvider
+                                        .getSmallestIncomeTransaction('Gaji');
                                 final smallestInvestasiTransaction =
-                                    transaksiProvider.getSmallestIncomeTransaction('Investasi');
+                                    transaksiProvider
+                                        .getSmallestIncomeTransaction(
+                                            'Investasi');
                                 final smallestLainnyaTransaction =
-                                    transaksiProvider.getSmallestIncomeTransaction('Lainnyaa');
+                                    transaksiProvider
+                                        .getSmallestIncomeTransaction(
+                                            'LainnyaPemasukan');
 
-                                double smallestAmount = smallestGajiTransaction?.jumlah ?? 0;
+                                double smallestAmount =
+                                    smallestGajiTransaction?.jumlah ?? 0;
                                 String smallestCategory = 'Gaji';
 
-                                if (smallestInvestasiTransaction != null && smallestInvestasiTransaction.jumlah! < smallestAmount) {
-                                  smallestAmount = smallestInvestasiTransaction.jumlah!;
+                                if (smallestInvestasiTransaction != null &&
+                                    smallestInvestasiTransaction.jumlah! <
+                                        smallestAmount) {
+                                  smallestAmount =
+                                      smallestInvestasiTransaction.jumlah!;
                                   smallestCategory = 'Investasi';
                                 }
 
-                                if (smallestLainnyaTransaction != null && smallestLainnyaTransaction.jumlah! < smallestAmount) {
-                                  smallestAmount = smallestLainnyaTransaction.jumlah!;
-                                  smallestCategory = 'Lainnyaa';
+                                if (smallestLainnyaTransaction != null &&
+                                    smallestLainnyaTransaction.jumlah! <
+                                        smallestAmount) {
+                                  smallestAmount =
+                                      smallestLainnyaTransaction.jumlah!;
+                                  smallestCategory = 'LainnyaPemasukan';
                                 }
 
                                 return Text(
-                                  'Rp ${smallestAmount.toStringAsFixed(2)}',
+                                  'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(smallestAmount)}',
                                   style: TextStyle(
                                     fontFamily: 'Arial',
                                     color: Colors.black,
@@ -560,7 +593,8 @@ class BerandaPage extends StatelessWidget {
                           Align(
                             alignment: AlignmentDirectional(-1.00, 0.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(15, 15, 0, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 15, 0, 0),
                               child: Text(
                                 'Pengeluaran Terakhir',
                                 style: TextStyle(
@@ -574,20 +608,34 @@ class BerandaPage extends StatelessWidget {
                           Align(
                             alignment: AlignmentDirectional(-1.00, 0.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(15, 10, 0, 0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 10, 0, 0),
                               child: Consumer<TransaksiProvider>(
                                 builder: (context, transaksiProvider, _) {
                                   // Mendapatkan transaksi pemasukan terakhir untuk kategori tertentu
-                                  Transaksi? lastExpenseTransaction = transaksiProvider.getLastExpenseByCategory(['Makanan & Minuman', 'Transportasi', 'Kebutuhan Rumah' ,'Perawatan Pribadi', 'Belanja', 'Kesehatan', 'Pendidikan', 'Lainnya']);
+                                  Transaksi? lastExpenseTransaction =
+                                      transaksiProvider
+                                          .getLastExpenseByCategory([
+                                    'Makanan & Minuman',
+                                    'Transportasi',
+                                    'Kebutuhan Rumah',
+                                    'Perawatan Pribadi',
+                                    'Belanja',
+                                    'Kesehatan',
+                                    'Pendidikan',
+                                    'Lainnya'
+                                  ]);
 
                                   // Menentukan kategori transaksi pemasukan terakhir yang akan ditampilkan
-                                  String displayedCategory = lastExpenseTransaction?.kategori ?? '';
+                                  String displayedCategory =
+                                      lastExpenseTransaction?.kategori ?? '';
 
                                   // Mengambil nominal dari transaksi pemasukan terakhir
-                                  double totalNominalPengeluaran = lastExpenseTransaction?.jumlah ?? 0;
+                                  double totalNominalPengeluaran =
+                                      lastExpenseTransaction?.jumlah ?? 0;
 
                                   return Text(
-                                    'Rp ${totalNominalPengeluaran.toStringAsFixed(2)}',
+                                    'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalNominalPengeluaran)}',
                                     style: TextStyle(
                                       fontFamily: 'Arial',
                                       color: Color(0xFFF5CE85),
@@ -619,63 +667,103 @@ class BerandaPage extends StatelessWidget {
                             Consumer<TransaksiProvider>(
                               builder: (context, transaksiProvider, _) {
                                 final largestMakananTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Makanan & Minuman');
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Makanan & Minuman');
                                 final largestTransportasiTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Transportasi');
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Transportasi');
                                 final largestKebutuhanRumahTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Kebutuhan Rumah');
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Kebutuhan Rumah');
                                 final largestPerawatanPribadiTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Perawatan Pribadi');
-                                    final largestBelanjaTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Belanja');
-                                    final largestKesehatanTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Kesehatan');
-                                    final largestPendidikanTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Pendidikan');
-                                    final largestLainnyaTransaction =
-                                    transaksiProvider.getLargestExpenseTransaction('Lainnya');              
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Perawatan Pribadi');
+                                final largestBelanjaTransaction =
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Belanja');
+                                final largestKesehatanTransaction =
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Kesehatan');
+                                final largestPendidikanTransaction =
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Pendidikan');
+                                final largestLainnyaTransaction =
+                                    transaksiProvider
+                                        .getLargestExpenseTransaction(
+                                            'Lainnya');
                                 // ... tambahkan baris serupa untuk kategori lainnya
 
-                                double largestExpenseAmount = largestMakananTransaction?.jumlah ?? 0;
-                                String largestExpenseCategory = 'Makanan & Minuman';
+                                double largestExpenseAmount =
+                                    largestMakananTransaction?.jumlah ?? 0;
+                                String largestExpenseCategory =
+                                    'Makanan & Minuman';
 
-                                if (largestTransportasiTransaction != null && largestTransportasiTransaction.jumlah > largestExpenseAmount) {
-                                    largestExpenseAmount = largestTransportasiTransaction.jumlah;
-                                    largestExpenseCategory = 'Transportasi';
+                                if (largestTransportasiTransaction != null &&
+                                    largestTransportasiTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestTransportasiTransaction.jumlah;
+                                  largestExpenseCategory = 'Transportasi';
                                 }
 
-                                if (largestKebutuhanRumahTransaction != null && largestKebutuhanRumahTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestKebutuhanRumahTransaction.jumlah;
+                                if (largestKebutuhanRumahTransaction != null &&
+                                    largestKebutuhanRumahTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestKebutuhanRumahTransaction.jumlah;
                                   largestExpenseCategory = 'Kebutuhan Rumah';
                                 }
 
-                                if (largestPerawatanPribadiTransaction != null && largestPerawatanPribadiTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestPerawatanPribadiTransaction.jumlah;
+                                if (largestPerawatanPribadiTransaction !=
+                                        null &&
+                                    largestPerawatanPribadiTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestPerawatanPribadiTransaction.jumlah;
                                   largestExpenseCategory = 'Perawatan Pribadi';
                                 }
 
-                                if (largestBelanjaTransaction != null && largestBelanjaTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestBelanjaTransaction.jumlah;
+                                if (largestBelanjaTransaction != null &&
+                                    largestBelanjaTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestBelanjaTransaction.jumlah;
                                   largestExpenseCategory = 'Belanja';
                                 }
 
-                                if (largestKesehatanTransaction != null && largestKesehatanTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestKesehatanTransaction.jumlah;
+                                if (largestKesehatanTransaction != null &&
+                                    largestKesehatanTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestKesehatanTransaction.jumlah;
                                   largestExpenseCategory = 'Kesehatan';
                                 }
 
-                                if (largestPendidikanTransaction != null && largestPendidikanTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestPendidikanTransaction.jumlah;
+                                if (largestPendidikanTransaction != null &&
+                                    largestPendidikanTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestPendidikanTransaction.jumlah;
                                   largestExpenseCategory = 'Pendidikan';
                                 }
 
-                                if (largestLainnyaTransaction != null && largestLainnyaTransaction.jumlah > largestExpenseAmount) {
-                                  largestExpenseAmount = largestLainnyaTransaction.jumlah;
+                                if (largestLainnyaTransaction != null &&
+                                    largestLainnyaTransaction.jumlah >
+                                        largestExpenseAmount) {
+                                  largestExpenseAmount =
+                                      largestLainnyaTransaction.jumlah;
                                   largestExpenseCategory = 'Lainnya';
                                 }
-                                
+
                                 return Text(
-                                  'Rp ${largestExpenseAmount.toStringAsFixed(2)}',
+                                  'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(largestExpenseAmount)}',
                                   style: TextStyle(
                                     fontFamily: 'Arial',
                                     color: Colors.black,
@@ -698,64 +786,106 @@ class BerandaPage extends StatelessWidget {
                             Consumer<TransaksiProvider>(
                               builder: (context, transaksiProvider, _) {
                                 final smallestMakananTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Makanan & Minuman');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Makanan & Minuman');
                                 final smallestTransportasiTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Transportasi');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Transportasi');
                                 final smallestKebutuhanRumahTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Kebutuhan Rumah');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Kebutuhan Rumah');
                                 final smallestPerawatanPribadiTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Perawatan Pribadi');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Perawatan Pribadi');
                                 final smallestBelanjaTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Belanja');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Belanja');
                                 final smallestKesehatanTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Kesehatan');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Kesehatan');
                                 final smallestPendidikanTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Pendidikan');
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Pendidikan');
                                 final smallestLainnyaTransaction =
-                                    transaksiProvider.getSmallestExpenseTransaction('Lainnya');                    
+                                    transaksiProvider
+                                        .getSmallestExpenseTransaction(
+                                            'Lainnya');
                                 // ... tambahkan baris serupa untuk kategori lainnya
 
-                                double smallestExpenseAmount = smallestMakananTransaction?.jumlah ?? 0;
-                                String smallestExpenseCategory = 'Makanan & Minuman';
+                                double smallestExpenseAmount =
+                                    smallestMakananTransaction?.jumlah ?? 0;
+                                String smallestExpenseCategory =
+                                    'Makanan & Minuman';
 
-                                if (smallestTransportasiTransaction != null && smallestTransportasiTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestTransportasiTransaction.jumlah!;
+                                if (smallestTransportasiTransaction != null &&
+                                    smallestTransportasiTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestTransportasiTransaction.jumlah!;
                                   smallestExpenseCategory = 'Transportasi';
                                 }
 
-                                if (smallestKebutuhanRumahTransaction != null && smallestKebutuhanRumahTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestKebutuhanRumahTransaction.jumlah!;
+                                if (smallestKebutuhanRumahTransaction != null &&
+                                    smallestKebutuhanRumahTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestKebutuhanRumahTransaction.jumlah!;
                                   smallestExpenseCategory = 'Kebutuhan Rumah';
                                 }
 
-                                if (smallestPerawatanPribadiTransaction != null && smallestPerawatanPribadiTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestPerawatanPribadiTransaction.jumlah!;
+                                if (smallestPerawatanPribadiTransaction !=
+                                        null &&
+                                    smallestPerawatanPribadiTransaction
+                                            .jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestPerawatanPribadiTransaction
+                                          .jumlah!;
                                   smallestExpenseCategory = 'Perawatan Pribadi';
                                 }
 
-                                if (smallestBelanjaTransaction != null && smallestBelanjaTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestBelanjaTransaction.jumlah!;
+                                if (smallestBelanjaTransaction != null &&
+                                    smallestBelanjaTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestBelanjaTransaction.jumlah!;
                                   smallestExpenseCategory = 'Belanja';
                                 }
 
-                                if (smallestKesehatanTransaction != null && smallestKesehatanTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestKesehatanTransaction.jumlah!;
+                                if (smallestKesehatanTransaction != null &&
+                                    smallestKesehatanTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestKesehatanTransaction.jumlah!;
                                   smallestExpenseCategory = 'Kesehatan';
                                 }
 
-                                if (smallestPendidikanTransaction != null && smallestPendidikanTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestPendidikanTransaction.jumlah!;
+                                if (smallestPendidikanTransaction != null &&
+                                    smallestPendidikanTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestPendidikanTransaction.jumlah!;
                                   smallestExpenseCategory = 'Pendidikan';
                                 }
 
-                                if (smallestLainnyaTransaction != null && smallestLainnyaTransaction.jumlah! < smallestExpenseAmount) {
-                                  smallestExpenseAmount = smallestLainnyaTransaction.jumlah!;
+                                if (smallestLainnyaTransaction != null &&
+                                    smallestLainnyaTransaction.jumlah! <
+                                        smallestExpenseAmount) {
+                                  smallestExpenseAmount =
+                                      smallestLainnyaTransaction.jumlah!;
                                   smallestExpenseCategory = 'Lainnya';
                                 }
                                 // ... tambahkan baris serupa untuk kategori lainnya
 
                                 return Text(
-                                  'Rp ${smallestExpenseAmount.toStringAsFixed(2)}',
+                                  'Rp ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(smallestExpenseAmount)}',
                                   style: TextStyle(
                                     fontFamily: 'Arial',
                                     color: Colors.black,
