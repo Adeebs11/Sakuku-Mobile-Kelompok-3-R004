@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/ui/beranda_page.dart';
-import 'package:sakuku_mobile/ui/budget_page.dart';
-import 'package:sakuku_mobile/ui/transaksi_page.dart';
+import 'package:sakukumobile/ui/beranda_page.dart';
+import 'package:sakukumobile/ui/budget_page.dart';
+import 'package:sakukumobile/ui/transaksi_page.dart';
 
 class Beranda2Page extends StatefulWidget {
-  const Beranda2Page({Key? key}) : super(key: key);
+  const Beranda2Page({super.key});
 
   @override
   State<Beranda2Page> createState() => _Beranda2PageState();
