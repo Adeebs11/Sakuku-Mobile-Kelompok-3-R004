@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sakuku_mobile/db/db_helper.dart';
-import 'package:sakuku_mobile/model/pengeluaran.dart';
+import 'package:sakukumobile/db/db_helper.dart';
+import 'package:sakukumobile/model/pengeluaran.dart';
 import 'package:intl/intl.dart';
-import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
 
 class FormPemasukan extends StatefulWidget {
@@ -17,7 +17,7 @@ class FormPemasukan extends StatefulWidget {
 class _FormPemasukanState extends State<FormPemasukan> {
   DbHelper db = DbHelper();
 
-  List<String> list = ['Gaji', 'Investasi', 'LainnyaPemasukan'];
+  List<String> list = ['Gaji', 'Investasi', 'Lainnyaa'];
   late String dropDownValue = list.first;
 
   TextEditingController? kategori;
@@ -245,6 +245,7 @@ class _FormPemasukanState extends State<FormPemasukan> {
             kategori: selectedValue!,
             jumlah: double.parse(jumlah?.text ?? '0'),
             id: '',
+            tanggal: DateTime.now(),
           ),
         );
       }
@@ -266,6 +267,7 @@ class _FormPemasukanState extends State<FormPemasukan> {
             kategori: selectedValue!,
             jumlah: double.parse(jumlah!.text),
             id: '',
+            tanggal: DateTime.now(),
           ),
         );
       }
@@ -274,4 +276,3 @@ class _FormPemasukanState extends State<FormPemasukan> {
     }
   }
 }
-
