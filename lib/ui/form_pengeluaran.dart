@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sakukumobile/db/db_helper.dart';
-import 'package:sakukumobile/model/pengeluaran.dart';
+import 'package:sakuku_mobile/db/db_helper.dart';
+import 'package:sakuku_mobile/model/pengeluaran.dart';
 import 'package:intl/intl.dart';
-import 'package:sakukumobile/model/transaksi_provider.dart';
+import 'package:sakuku_mobile/model/transaksi_provider.dart';
 import 'package:provider/provider.dart';
 
 class FormPengeluaran extends StatefulWidget {
@@ -237,13 +237,15 @@ class _FormPengeluaranState extends State<FormPengeluaran> {
     TransaksiProvider transaksiProvider =
         Provider.of<TransaksiProvider>(context, listen: false);
 
+    String cleanJumlah = jumlah?.text.replaceAll('.', '') ?? '0';
+
     if (widget.pengeluaran != null) {
       // Update
       await db.updatePengeluaran(Pengeluaran.fromMap({
         'id': widget.pengeluaran!.id,
         'kategori': selectedValue,
         'tanggal': tanggal?.text ?? '',
-        'jumlah': double.parse(jumlah?.text ?? '0').toString(),
+        'jumlah': cleanJumlah,
         'deskripsi': deskripsi?.text ?? '',
       }));
 
@@ -252,7 +254,7 @@ class _FormPengeluaranState extends State<FormPengeluaran> {
         transaksiProvider.addTransaksi(
           Transaksi(
             kategori: selectedValue!,
-            jumlah: double.parse(jumlah?.text ?? '0'),
+            jumlah: double.parse(cleanJumlah),
             id: '',
             tanggal: DateTime.now(),
           ),
@@ -265,16 +267,16 @@ class _FormPengeluaranState extends State<FormPengeluaran> {
       await db.savePengeluaran(Pengeluaran(
         kategori: selectedValue,
         tanggal: tanggal?.text ?? '',
-        jumlah: double.parse(jumlah?.text ?? '0').toString(),
+        jumlah: cleanJumlah,
         deskripsi: deskripsi?.text ?? '',
       ));
 
       // Add new Transaksi to TransaksiProvider
-      if (selectedValue != null && jumlah?.text != null) {
+      if (selectedValue != null) {
         transaksiProvider.addTransaksi(
           Transaksi(
             kategori: selectedValue!,
-            jumlah: double.parse(jumlah!.text),
+            jumlah: double.parse(cleanJumlah),
             id: '',
             tanggal: DateTime.now(),
           ),
