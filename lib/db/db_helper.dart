@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sakuku_mobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
+import 'package:sakukumobile/model/pengeluaran.dart'; // Ganti dengan model yang sesuai
 
 class DbHelper {
   static final DbHelper _instance = DbHelper._internal();
@@ -128,4 +128,3 @@ class DbHelper {
         .delete(tableName, where: '$columnId = ?', whereArgs: [id]);
   }
 }
-
