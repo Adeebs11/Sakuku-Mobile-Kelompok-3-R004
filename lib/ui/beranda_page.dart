@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sakuku_mobile/model/transaksi_provider.dart';
+import 'package:sakukumobile/model/transaksi_provider.dart';
 import 'package:intl/intl.dart';
 
 class BerandaPage extends StatelessWidget {
@@ -36,36 +36,67 @@ class BerandaPage extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: AlignmentDirectional(0.00, 0.00),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-              child: Text(
-                'Hai,',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Arial',
-                  color: Color(0xFF4F5E8D),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          Text(
-            'Pengguna',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Arial',
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
+
           Consumer<TransaksiProvider>(
             builder: (context, transaksiProvider, _) {
+              // Menghitung total pemasukan
+              double totalPemasukan = transaksiProvider
+                  .getJumlahTransaksi('Gaji') +
+                  transaksiProvider.getJumlahTransaksi('Investasi') +
+                  transaksiProvider.getJumlahTransaksi('LainnyaPemasukan').toDouble();
+
+              // Menghitung total pengeluaran
+              double totalPengeluaran = transaksiProvider
+                  .getJumlahTransaksi('Makanan & Minuman') +
+                  transaksiProvider.getJumlahTransaksi('Transportasi') +
+                  transaksiProvider.getJumlahTransaksi('Kebutuhan Rumah') +
+                  transaksiProvider.getJumlahTransaksi('Perawatan Pribadi') +
+                  transaksiProvider.getJumlahTransaksi('Belanja') +
+                  transaksiProvider.getJumlahTransaksi('Kesehatan') +
+                  transaksiProvider.getJumlahTransaksi('Pendidikan') +
+                  transaksiProvider.getJumlahTransaksi('Lainnya').toDouble();
+
+              // Menghitung total saldo
+              double totalSaldo = transaksiProvider.getTotalSaldo();
+
+              return Column(
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0.00, 0.00),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: Text(
+                        'Total Saldo',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          color: Color(0xFF4F5E8D),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Rp. ${NumberFormat.currency(locale: 'id_ID', symbol: '').format(totalSaldo)}',
+                    style: TextStyle(
+                      fontFamily: 'Arial',
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        
+          Consumer<TransaksiProvider>(
+            builder: (context, transaksiProvider, _) {
+              //int totalSaldo = totalPemasukan - totalPengeluaran; 
               double totalPemasukan = transaksiProvider.getTotalPemasukan();
               double totalPengeluaran = transaksiProvider.getTotalPengeluaran();
+              //double totalSaldo = transaksiProvider.getTotalSaldo();
 
               return Row(
                 mainAxisSize: MainAxisSize.max,
