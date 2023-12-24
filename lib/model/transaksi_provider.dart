@@ -49,6 +49,13 @@ class TransaksiProvider with ChangeNotifier {
         .fold(0, (prev, curr) => prev + curr);
   }
 
+  // Metode untuk mendapatkan total saldo berdasarkan selisih antara total pemasukan dan total pengeluaran.  
+  double getTotalSaldo() {
+    double totalPemasukan = getTotalPemasukan();
+    double totalPengeluaran = getTotalPengeluaran();
+    return totalPemasukan - totalPengeluaran;
+  }
+  
   // Metode untuk mendapatkan total pengeluaran.
   double getTotalPengeluaran() {
     return _transaksi
